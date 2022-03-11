@@ -3,18 +3,22 @@ name: Continuous Integration
 on:
   push:
     branches:
-    - master
+    - main
 
   pull_request:
     branches:
-    - master
+    - main
 
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: "Checkout Code"
+      uses: actions/checkout@v3
+      with:
+        submodules: "recursive"
+        fetch-depth: 0
 
     - uses: actions/setup-python@v2
       with: { python-version: "3.8" }
@@ -42,7 +46,11 @@ jobs:
       && false
 
     steps:
-    - uses: actions/checkout@v2
+    - name: "Checkout Code"
+      uses: actions/checkout@v3
+      with:
+        submodules: "recursive"
+        fetch-depth: 0
 
     - name: Install LCov
       run: sudo apt-get update -q
@@ -72,7 +80,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: "Checkout Code"
+      uses: actions/checkout@v3
+      with:
+        submodules: "recursive"
+        fetch-depth: 0
 
     - name: Configure
       env: { CXX: clang++-11 }
@@ -102,7 +114,11 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+    - name: "Checkout Code"
+      uses: actions/checkout@v3
+      with:
+        submodules: "recursive"
+        fetch-depth: 0
 
     - name: Install static analyzers
       if: matrix.os == 'ubuntu-latest'
@@ -139,13 +155,17 @@ jobs:
     # this comment and the last line in the conditional below.
     # If you do not wish to use GitHub Pages for deploying documentation, then
     # simply delete this job similarly to the coverage one.
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
       && github.event_name == 'push'
       && github.repository_owner == '<name>'
       && false
 
     steps:
-    - uses: actions/checkout@v2
+    - name: "Checkout Code"
+      uses: actions/checkout@v3
+      with:
+        submodules: "recursive"
+        fetch-depth: 0
 
     - uses: actions/setup-python@v2
       with: { python-version: "3.8" }

@@ -1,32 +1,32 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(MathLibTests LANGUAGES CXX)
+project(mathlibTests LANGUAGES CXX)
 
 include(../cmake/project-is-top-level.cmake)
 include(../cmake/folders.cmake)
 include(../cmake/windows-set-path.cmake)
 
 if(PROJECT_IS_TOP_LEVEL)
-  find_package(MathLib REQUIRED)
+  find_package(mathlib REQUIRED)
   enable_testing()
 endif()
 
 #add_executable(MathLib_test source/MathLib_test.cpp)
-#target_link_libraries(MathLib_test PRIVATE MathLib::MathLib)
+#target_link_libraries(MathLib_test PRIVATE mathlib::mathlib)
 #target_compile_features(MathLib_test PRIVATE cxx_std_17)
 
 #add_test(NAME MathLib_test COMMAND MathLib_test)
 
 function(add_test_fn TEST_NAME)
   add_executable("${TEST_NAME}" "source/${TEST_NAME}.cpp")
-  target_link_libraries("${TEST_NAME}" PRIVATE MathLib::MathLib gtest_main)
+  target_link_libraries("${TEST_NAME}" PRIVATE mathlib::mathlib gtest_main)
   add_test("${TEST_NAME}" "${TEST_NAME}")
   # target_compile_features("${TEST_NAME}" PRIVATE cxx_std_17)
 endfunction()
 
 function(add_bench_fn BENCH_NAME)
   add_executable("${BENCH_NAME}" "source/${BENCH_NAME}.cpp")
-  target_link_libraries("${BENCH_NAME}" PRIVATE MathLib::MathLib benchmark::benchmark_main)
+  target_link_libraries("${BENCH_NAME}" PRIVATE mathlib::mathlib benchmark::benchmark_main)
   add_test("${BENCH_NAME}" "${BENCH_NAME}")
   # target_compile_features("${TEST_NAME}" PRIVATE cxx_std_17)
 endfunction()
