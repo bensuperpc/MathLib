@@ -1,11 +1,11 @@
 # ---- Developer mode ----
 
 # Developer mode enables targets and code paths in the CMake scripts that are
-# only relevant for the developer(s) of MathLib
+# only relevant for the developer(s) of mathlib
 # Targets necessary to build the project must be provided unconditionally, so
 # consumers can trivially build and package the project
 if(PROJECT_IS_TOP_LEVEL)
-  option(MathLib_DEVELOPER_MODE "Enable developer mode" OFF)
+  option(mathlib_DEVELOPER_MODE "Enable developer mode" OFF)
 endif()
 
 # ---- Warning guard ----
@@ -17,12 +17,12 @@ endif()
 set(warning_guard "")
 if(NOT PROJECT_IS_TOP_LEVEL)
   option(
-      MathLib_INCLUDES_WITH_SYSTEM
-      "Use SYSTEM modifier for MathLib's includes, disabling warnings"
+      mathlib_INCLUDES_WITH_SYSTEM
+      "Use SYSTEM modifier for mathlib's includes, disabling warnings"
       ON
   )
-  mark_as_advanced(MathLib_INCLUDES_WITH_SYSTEM)
-  if(MathLib_INCLUDES_WITH_SYSTEM)
+  mark_as_advanced(mathlib_INCLUDES_WITH_SYSTEM)
+  if(mathlib_INCLUDES_WITH_SYSTEM)
     set(warning_guard SYSTEM)
   endif()
 endif()

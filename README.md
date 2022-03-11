@@ -1,6 +1,6 @@
-# MathLib
+# mathlib
 
-This is the MathLib project.
+This is the mathlib project.
 
 # Building and installing
 

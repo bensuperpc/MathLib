@@ -1,1 +1,1 @@
-include("${CMAKE_CURRENT_LIST_DIR}/MathLibTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/mathlibTargets.cmake")

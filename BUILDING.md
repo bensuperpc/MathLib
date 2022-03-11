@@ -49,18 +49,18 @@ cmake --install build --config Release
 This project exports a CMake package to be used with the [`find_package`][2]
 command of CMake:
 
-* Package name: `MathLib`
-* Target name: `MathLib::MathLib`
+* Package name: `mathlib`
+* Target name: `mathlib::mathlib`
 
 Example usage:
 
 ```cmake
-find_package(MathLib REQUIRED)
+find_package(mathlib REQUIRED)
 # Declare the imported target as a build requirement using PRIVATE, where
 # project_target is a target created in the consuming project
 target_link_libraries(
     project_target PRIVATE
-    MathLib::MathLib
+    mathlib::mathlib
 )
 ```
 
