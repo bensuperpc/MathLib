@@ -9,7 +9,7 @@
  *
  */
 
-#include "MathLib/power.hpp"
+#include "mathlib/power.hpp"
 
 #include "gtest/gtest.h"
 

@@ -9,7 +9,7 @@
  *
  */
 
-#include "MathLib/sphere.hpp"
+#include "mathlib/sphere.hpp"
 
 #include "gtest/gtest.h"
 

@@ -9,9 +9,9 @@
  *
  */
 
-#include "MathLib/getSchwarzschild.hpp"
+#include "mathlib/getSchwarzschild.hpp"
 
-#include "MathLib/constant.hpp"
+#include "mathlib/constant.hpp"
 #include "gtest/gtest.h"
 
 namespace schwarzschild = my::math::schwarzschild;

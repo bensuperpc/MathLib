@@ -9,9 +9,9 @@
  *
  */
 
-#include "MathLib/getGravitationalAttraction.hpp"
+#include "mathlib/getGravitationalAttraction.hpp"
 
-#include "MathLib/constant.hpp"
+#include "mathlib/constant.hpp"
 #include "gtest/gtest.h"
 
 TEST(getSchwarzschild, basic_double_1)

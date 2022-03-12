@@ -9,7 +9,7 @@
  *
  */
 
-#include "MathLib/cylinder.hpp"
+#include "mathlib/cylinder.hpp"
 
 #include "gtest/gtest.h"
 
