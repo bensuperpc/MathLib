@@ -84,6 +84,7 @@ if(NOT WIN32)
   add_test_fn(power_test)
   add_test_fn(sphere_test)
   add_test_fn(float_test)
+  add_test_fn(random_test)
 
   # Lib: gtest gtest_main benchmark::benchmark benchmark::benchmark_main
 

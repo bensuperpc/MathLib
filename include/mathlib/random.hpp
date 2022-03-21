@@ -32,18 +32,32 @@ namespace rand
 /**
  * @brief
  *
+ * @tparam T
  * @param fMin
  * @param fMax
- * @return double
+ * @return T
  */
-double rand(const double& fMin, const double& fMax)
+template<typename T, bool mersenne_64 = true>
+T random(const T& fMin, const T& fMax)
 {
-  std::uniform_real_distribution<double> dist(fMin, fMax);
+  typedef typename std::conditional<mersenne_64 == true,
+                                    std::mt19937_64,
+                                    std::mt19937>::type random_engine;
+  random_engine rng;
+  std::random_device rnd_device;
+  rng.seed(rnd_device());
 
-  std::mt19937 rng;
-  rng.seed(std::random_device {}());
-  return dist(rng);
+  if constexpr (std::is_integral<T>::value) {
+    std::uniform_int_distribution<T> dist(fMin, fMax);
+    return dist(rng);
+  } else if (std::is_floating_point<T>::value) {
+    std::uniform_real_distribution<T> dist(fMin, fMax);
+    return dist(rng);
+  } else {
+    return 0.0;
+  }
 }
+
 }  // namespace rand
 }  // namespace math
 }  // namespace my
