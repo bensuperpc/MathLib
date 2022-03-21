@@ -103,8 +103,7 @@ TEST(random, basic_vec_int_2)
   const auto max = 160;
 
   my::math::rand::random<int, true>(vec, min, max);
-  for (auto& vec_ : vec)
-  {
+  for (auto& vec_ : vec) {
     EXPECT_IN_RANGE(vec_, min, max);
   }
 }
@@ -120,8 +119,7 @@ TEST(random, basic_vec_float_1)
   const auto max = 1.0;
 
   my::math::rand::random<float, true>(vec, min, max);
-  for (auto& vec_ : vec)
-  {
+  for (auto& vec_ : vec) {
     EXPECT_IN_RANGE(vec_, min, max);
   }
 }
@@ -137,8 +135,7 @@ TEST(random, basic_vec_float_2)
   const auto max = 1.0;
 
   my::math::rand::random<float, true>(vec, min, max);
-  for (auto& vec_ : vec)
-  {
+  for (auto& vec_ : vec) {
     EXPECT_IN_RANGE(vec_, min, max);
   }
 }
@@ -154,8 +151,7 @@ TEST(random, basic_vec_double_1)
   const auto max = 1.0;
 
   my::math::rand::random<double, true>(vec, min, max);
-  for (auto& vec_ : vec)
-  {
+  for (auto& vec_ : vec) {
     EXPECT_IN_RANGE(vec_, min, max);
   }
 }

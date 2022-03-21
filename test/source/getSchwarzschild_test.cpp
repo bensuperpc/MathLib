@@ -11,8 +11,8 @@
 
 #include "mathlib/getSchwarzschild.hpp"
 
-#include "mathlib/constant.hpp"
 #include "gtest/gtest.h"
+#include "mathlib/constant.hpp"
 
 namespace schwarzschild = my::math::schwarzschild;
 

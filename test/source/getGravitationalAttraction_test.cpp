@@ -11,8 +11,8 @@
 
 #include "mathlib/getGravitationalAttraction.hpp"
 
-#include "mathlib/constant.hpp"
 #include "gtest/gtest.h"
+#include "mathlib/constant.hpp"
 
 TEST(getSchwarzschild, basic_double_1)
 {
