@@ -33,8 +33,8 @@ namespace rand
  * @brief
  *
  * @tparam T
- * @param fMin
- * @param fMax
+ * @param lower
+ * @param upper
  * @return T
  */
 template<typename T, bool mersenne_64 = true>
@@ -50,11 +50,39 @@ T random(const T& fMin, const T& fMax)
   if constexpr (std::is_integral<T>::value) {
     std::uniform_int_distribution<T> dist(fMin, fMax);
     return dist(rng);
-  } else if (std::is_floating_point<T>::value) {
+  } else /*if (std::is_floating_point<T>::value)*/ {
     std::uniform_real_distribution<T> dist(fMin, fMax);
     return dist(rng);
-  } else {
-    return 0.0;
+  }
+}
+
+/**
+ * @brief
+ *
+ * @tparam T
+ * @param lower
+ * @param upper
+ */
+template<typename T, bool mersenne_64 = true>
+void random(std::vector<T>& vec, const T& lower, const T& upper)
+{
+  typedef typename std::conditional<mersenne_64 == true,
+                                    std::mt19937_64,
+                                    std::mt19937>::type random_engine;
+  random_engine rng;
+  std::random_device rnd_device;
+  rng.seed(rnd_device());
+
+  if constexpr (std::is_integral<T>::value) {
+    std::uniform_int_distribution<T> dist {lower, upper};
+    for (auto& vec_ : vec) {
+      vec_ = random<T, mersenne_64>(lower, upper);
+    }
+  } else /*if (std::is_floating_point<T>::value)*/ {
+    std::uniform_real_distribution<T> dist {lower, upper};
+    for (auto& vec_ : vec) {
+      vec_ = random<T, mersenne_64>(lower, upper);
+    }
   }
 }
 
