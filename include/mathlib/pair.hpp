@@ -28,7 +28,7 @@ namespace math
  * @return false
  */
 template<typename T>
-bool is_odd(T nbr)
+bool is_odd(const T& nbr)
 {
   if (nbr & 1)
     return true;
@@ -47,7 +47,7 @@ bool is_odd(T nbr)
  * @return false
  */
 template<typename T>
-bool is_even(T nbr)
+bool is_even(const T& nbr)
 {
   if (nbr & 1)
     return false;

@@ -48,11 +48,11 @@ namespace square_root
  * @return T
  */
 template<typename T, char iterations = 2>
-inline T invsqrt(T nbr);
+inline T invsqrt(const T& nbr);
 
 // THANK https://stackoverflow.com/a/59248244/10152334
 template<typename T, char iterations>
-T math::square_root::invsqrt(T x)
+T math::square_root::invsqrt(const T& x)
 {
   static_assert(std::is_floating_point<T>::value, "T must be floating point");
   static_assert(iterations == 1 or iterations == 2,
@@ -78,7 +78,7 @@ T math::square_root::invsqrt(T x)
  * @param x
  * @return float
  */
-float invsqrt(float x)
+float invsqrt(const float& x)
 {
   float xhalf = 0.5f * x;
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
@@ -99,7 +99,7 @@ float invsqrt(float x)
  * @param x
  * @return double
  */
-double invsqrt(double x)
+double invsqrt(const double& x)
 {
   double y = x;
   double x2 = y * 0.5;
@@ -119,7 +119,7 @@ double invsqrt(double x)
  * @param x
  * @return float
  */
-float sqrt(float x)
+float sqrt(const float& x)
 {
   return std::sqrt(x);
 }
@@ -132,7 +132,7 @@ float sqrt(float x)
  * @param x
  * @return double
  */
-double sqrt(double x)
+double sqrt(const double& x)
 {
   return std::sqrt(x);
 }

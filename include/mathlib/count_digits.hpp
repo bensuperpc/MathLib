@@ -50,7 +50,7 @@ T count_digits_1(T n)
  * @return T
  */
 template<typename T>
-T count_digits_2(T n)
+T count_digits_2(const T& n)
 {
   if (n == 0)
     return 0;
@@ -67,7 +67,7 @@ T count_digits_2(T n)
  * @return T
  */
 template<typename T>
-T count_digits_3(T n)
+T count_digits_3(const T& n)
 {
   return (T)std::floor(std::log10(n) + 1);
 }
@@ -82,7 +82,7 @@ T count_digits_3(T n)
  * @return T
  */
 template<typename T>
-T count_digits_4(T n)
+T count_digits_4(const T& n)
 {
   std::string num = std::to_string(n);
   return (T)num.size();

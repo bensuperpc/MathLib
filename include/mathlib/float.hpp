@@ -12,11 +12,13 @@
 #ifndef FLOAT_HPP_
 #define FLOAT_HPP_
 
-#include <algorithm>
+//#include <algorithm>
+// #include <cstdlib>
+//#include <cmath>
+
 #include <cmath>
-extern "C" {
-#include <stdio.h>
-}
+#include <limits>
+#include <type_traits>
 
 namespace my
 {
@@ -25,18 +27,18 @@ namespace math
 namespace fp
 {
 
-/**
- * @brief
- *
- * @param x
- * @param y
- * @return true
- * @return false
- */
-bool are_aqual(double& x, double& y)
+template<typename IntegralType>
+typename std::enable_if<std::is_integral<IntegralType>::value, bool>::type
+are_aqual(const IntegralType& a, const IntegralType& b)
 {
-  double maxXYOne = std::max({1.0, std::fabs(x), std::fabs(y)});
-  return std::fabs(x - y) <= std::numeric_limits<double>::epsilon() * maxXYOne;
+  return a == b;
+}
+
+template<typename FloatingType>
+typename std::enable_if<std::is_floating_point<FloatingType>::value, bool>::type
+are_aqual(const FloatingType& a, const FloatingType& b)
+{
+  return std::fabs(a - b) < std::numeric_limits<FloatingType>::epsilon();
 }
 
 }  // namespace fp

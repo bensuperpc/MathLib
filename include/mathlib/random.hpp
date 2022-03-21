@@ -36,7 +36,7 @@ namespace rand
  * @param fMax
  * @return double
  */
-double rand(double fMin, double fMax)
+double rand(const double& fMin, const double& fMax)
 {
   std::uniform_real_distribution<double> dist(fMin, fMax);
 

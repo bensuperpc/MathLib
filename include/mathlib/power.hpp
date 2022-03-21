@@ -24,7 +24,7 @@ namespace math
  * @return T
  */
 template<typename T>
-T power(T nb, long int p)
+T power(const T& nb, const long int& p)
 {
   if (p < 0)
     return (0);
@@ -43,7 +43,7 @@ T power(T nb, long int p)
  * @return false
  */
 template<typename T>
-bool isPowerOfTwo(T x)
+bool isPowerOfTwo(const T& x)
 {
   return x && (!(x & (x - 1)));
 }
