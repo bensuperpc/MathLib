@@ -1,5 +1,5 @@
 /**
- * @file float_test.cpp
+ * @file random_test.cpp
  * @author Bensuperpc (bensuperpc@gmail.com)
  * @brief Source: https://stackoverflow.com/q/27228813
  * @version 1.0.0
@@ -155,3 +155,10 @@ TEST(random, basic_vec_double_1)
     EXPECT_IN_RANGE(vec_, min, max);
   }
 }
+
+/*
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+*/

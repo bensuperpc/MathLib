@@ -22,6 +22,21 @@
 #include <iostream>
 #include <iterator>
 #include <random>
+#include <vector>
+
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
+#  if __has_include("omp.h")
+#    include <omp.h>
+#  endif
+#endif
+
+#if !defined(_OPENMP)
+#  if _MSC_VER && !__INTEL_COMPILER
+#    pragma message("No openMP ! Only use 1 thread.")
+#  else
+#    warning No openMP ! Only use 1 thread.
+#  endif
+#endif
 
 namespace my
 {
@@ -66,23 +81,15 @@ T random(const T& fMin, const T& fMax)
 template<typename T, bool mersenne_64 = true>
 void random(std::vector<T>& vec, const T& lower, const T& upper)
 {
-  typedef typename std::conditional<mersenne_64 == true,
-                                    std::mt19937_64,
-                                    std::mt19937>::type random_engine;
-  random_engine rng;
-  std::random_device rnd_device;
-  rng.seed(rnd_device());
-
-  if constexpr (std::is_integral<T>::value) {
-    std::uniform_int_distribution<T> dist {lower, upper};
-    for (auto& vec_ : vec) {
-      vec_ = random<T, mersenne_64>(lower, upper);
-    }
-  } else /*if (std::is_floating_point<T>::value)*/ {
-    std::uniform_real_distribution<T> dist {lower, upper};
-    for (auto& vec_ : vec) {
-      vec_ = random<T, mersenne_64>(lower, upper);
-    }
+#if defined(_OPENMP)
+#  ifdef _MSC_VER
+#    pragma omp parallel for schedule(static)
+#  else
+#    pragma omp parallel for schedule(auto)
+#  endif
+#endif
+  for (typename std::vector<T>::size_type i = 0; i != vec.size(); i++) {
+    vec[i] = random<T, mersenne_64>(lower, upper);
   }
 }
 

@@ -9,5 +9,4 @@ cmake -S . -B build -G Ninja $* --preset=dev-unix -D CMAKE_BUILD_TYPE=Release -D
 
 ninja -C build
 
-# --verbose
-ctest --parallel $(nproc) --test-dir build
+ctest --verbose --parallel $(nproc) --test-dir build

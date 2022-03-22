@@ -17,9 +17,15 @@ endif()
 
 #add_test(NAME MathLib_test COMMAND MathLib_test)
 
+find_package(OpenMP 2.0)
+
+
 function(add_test_fn TEST_NAME)
   add_executable("${TEST_NAME}" "source/${TEST_NAME}.cpp")
   target_link_libraries("${TEST_NAME}" PRIVATE mathlib::mathlib gtest_main)
+  if (OpenMP_FOUND OR OpenMP_CXX_FOUND)
+    target_link_libraries("${TEST_NAME}" PRIVATE OpenMP::OpenMP_CXX)
+  endif()
   add_test("${TEST_NAME}" "${TEST_NAME}")
   # target_compile_features("${TEST_NAME}" PRIVATE cxx_std_17)
 endfunction()
@@ -27,7 +33,15 @@ endfunction()
 function(add_bench_fn BENCH_NAME)
   add_executable("${BENCH_NAME}" "source/${BENCH_NAME}.cpp")
   target_link_libraries("${BENCH_NAME}" PRIVATE mathlib::mathlib benchmark::benchmark_main)
-  add_test("${BENCH_NAME}" "${BENCH_NAME}")
+  if (OpenMP_FOUND OR OpenMP_CXX_FOUND)
+    target_link_libraries("${BENCH_NAME}" PRIVATE OpenMP::OpenMP_CXX)
+  endif()
+
+  if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
+    add_test("${BENCH_NAME}" "${BENCH_NAME}")
+  elseif()
+    message(STATUS "Disable ${BENCH_NAME}, Performance benchmark test only run on Release/RelWithDebInfo/MinSizeRel")
+  endif()
   # target_compile_features("${TEST_NAME}" PRIVATE cxx_std_17)
 endfunction()
 
@@ -86,13 +100,11 @@ if(NOT WIN32)
   add_test_fn(float_test)
   add_test_fn(random_test)
 
-  # Lib: gtest gtest_main benchmark::benchmark benchmark::benchmark_main
+  # Add tests
 
-  if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
-    #add_test(NAME find_string_inv_bench COMMAND find_string_inv_bench)
-  elseif()
-    message(STATUS "Disable crc32_bench, Performance benchmark test only run on Release/RelWithDebInfo/MinSizeRel")
-  endif()
+  add_bench_fn(random_bench)
+
+  # Lib: gtest gtest_main benchmark::benchmark benchmark::benchmark_main
 
   #include(GoogleTest)
   #gtest_discover_tests(jamcrc_test)
