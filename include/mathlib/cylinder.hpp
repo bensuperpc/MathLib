@@ -38,13 +38,13 @@ namespace cylinder
  */
 #if __cplusplus < 202002L
 template<typename T>
-T cylinderSurface(const T& r, const T& h)
+auto cylinderSurface(const T& r, const T& h) -> T
 {
   return 2.0 * PI * r * r + 2.0 * PI * r * h;
 }
 #else
 template<typename T>
-T cylinderSurface(const T& r, const T& h)
+auto cylinderSurface(const T& r, const T& h) -> T
 {
   return 2.0 * std::numbers::pi * r * r + 2.0 * std::numbers::pi * r * h;
 }
@@ -62,13 +62,13 @@ T cylinderSurface(const T& r, const T& h)
  */
 #if __cplusplus < 202002L
 template<typename T>
-T cylinderVolume(const T& r, const T& h)
+auto cylinderVolume(const T& r, const T& h) -> T
 {
   return h * PI * r * r;
 }
 #else
 template<typename T>
-T cylinderVolume(const T& r, const T& h)
+auto cylinderVolume(const T& r, const T& h) -> T
 {
   return h * std::numbers::pi * r * r;
 }

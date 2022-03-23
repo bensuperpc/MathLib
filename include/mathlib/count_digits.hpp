@@ -30,7 +30,7 @@ namespace count_digits
  * @return T
  */
 template<typename T>
-T count_digits_1(T n)
+auto count_digits_1(T n) -> T
 {
   T count = 0;
   while (n != 0) {

@@ -42,7 +42,7 @@ function(add_bench_fn BENCH_NAME)
   elseif()
     message(STATUS "Disable ${BENCH_NAME}, Performance benchmark test only run on Release/RelWithDebInfo/MinSizeRel")
   endif()
-  # target_compile_features("${TEST_NAME}" PRIVATE cxx_std_17)
+  # target_compile_features("${BENCH_NAME}" PRIVATE cxx_std_17)
 endfunction()
 
 

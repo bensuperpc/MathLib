@@ -18,6 +18,8 @@
 #define RANDOM_HPP_
 
 #include <algorithm>
+#include <array>
+#include <cstddef>
 #include <ctime>
 #include <iostream>
 #include <iterator>
@@ -53,7 +55,7 @@ namespace rand
  * @return T
  */
 template<typename T, bool mersenne_64 = true>
-T random(const T& fMin, const T& fMax)
+auto random(const T& fMin, const T& fMax) -> T
 {
   typedef typename std::conditional<mersenne_64 == true,
                                     std::mt19937_64,
@@ -77,9 +79,23 @@ T random(const T& fMin, const T& fMax)
  * @tparam T
  * @param lower
  * @param upper
+ * @return T
  */
 template<typename T, bool mersenne_64 = true>
-void random(std::vector<T>& vec, const T& lower, const T& upper)
+auto random(T& var, const T& fMin, const T& fMax) -> void
+{
+  var = random<T, mersenne_64>(fMin, fMax);
+}
+
+/**
+ * @brief
+ *
+ * @tparam T
+ * @param lower
+ * @param upper
+ */
+template<typename T, bool mersenne_64 = true>
+auto random(std::vector<T>& vec, const T& lower, const T& upper) -> void
 {
 #if defined(_OPENMP)
 #  ifdef _MSC_VER
@@ -90,6 +106,29 @@ void random(std::vector<T>& vec, const T& lower, const T& upper)
 #endif
   for (typename std::vector<T>::size_type i = 0; i != vec.size(); i++) {
     vec[i] = random<T, mersenne_64>(lower, upper);
+  }
+}
+
+/**
+ * @brief
+ *
+ * @tparam T
+ * @param lower
+ * @param upper
+ */
+template<typename T, bool mersenne_64 = true>
+auto random(T* arr, const std::size_t& S, const T& lower, const T& upper)
+    -> void
+{
+#if defined(_OPENMP)
+#  ifdef _MSC_VER
+#    pragma omp parallel for schedule(static)
+#  else
+#    pragma omp parallel for schedule(auto)
+#  endif
+#endif
+  for (std::size_t i = 0; i != S; i++) {
+    arr[i] = random<T, mersenne_64>(lower, upper);
   }
 }
 

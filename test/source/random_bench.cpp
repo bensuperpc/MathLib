@@ -24,7 +24,7 @@
 static void random_basic_bench(benchmark::State& state)
 {
   // Code inside this loop is measured repeatedly
-  const auto size = state.range(0);
+  int64_t size = state.range(0);
   size_t result = 0;
 
   for (auto _ : state) {
@@ -52,7 +52,7 @@ BENCHMARK(random_basic_bench)
 static void random64_basic_bench(benchmark::State& state)
 {
   // Code inside this loop is measured repeatedly
-  const auto size = state.range(0);
+  int64_t size = state.range(0);
   size_t result = 0;
 
   for (auto _ : state) {
@@ -80,7 +80,7 @@ BENCHMARK(random64_basic_bench)
 static void random_basic_vec_bench(benchmark::State& state)
 {
   // Code inside this loop is measured repeatedly
-  const auto size = state.range(0);
+  int64_t size = state.range(0);
   std::vector<size_t> vec(size, 0);
 
   for (auto _ : state) {
@@ -108,7 +108,7 @@ BENCHMARK(random_basic_vec_bench)
 static void random64_basic_vec_bench(benchmark::State& state)
 {
   // Code inside this loop is measured repeatedly
-  const auto size = state.range(0);
+  int64_t size = state.range(0);
   std::vector<size_t> vec(size, 0);
 
   for (auto _ : state) {

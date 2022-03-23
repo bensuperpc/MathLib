@@ -48,7 +48,7 @@ namespace square_root
  * @return T
  */
 template<typename T, char iterations = 2>
-inline T invsqrt(const T& nbr);
+auto invsqrt(const T& nbr) -> T;
 
 // THANK https://stackoverflow.com/a/59248244/10152334
 template<typename T, char iterations>
@@ -78,13 +78,12 @@ T math::square_root::invsqrt(const T& x)
  * @param x
  * @return float
  */
-float invsqrt(const float& x)
+auto invsqrt(const float& nbr) -> float
 {
+  float x = nbr;
   float xhalf = 0.5f * x;
-#pragma GCC diagnostic ignored "-Wstrict-aliasing"
   int i = *(int*)&x;
   i = MagicNBR_32 - (i >> 1);
-#pragma GCC diagnostic ignored "-Wstrict-aliasing"
   x = *(float*)&i;
   x = x * (1.5f - xhalf * x * x);
   // x  = x * (1.5 - ( xhalf * x * x ));   // 2nd iteration, this can be removed
@@ -99,7 +98,7 @@ float invsqrt(const float& x)
  * @param x
  * @return double
  */
-double invsqrt(const double& x)
+auto invsqrt(const double& x) -> double
 {
   double y = x;
   double x2 = y * 0.5;
@@ -119,7 +118,7 @@ double invsqrt(const double& x)
  * @param x
  * @return float
  */
-float sqrt(const float& x)
+auto sqrt(const float& x) -> float
 {
   return std::sqrt(x);
 }
@@ -132,7 +131,7 @@ float sqrt(const float& x)
  * @param x
  * @return double
  */
-double sqrt(const double& x)
+auto sqrt(const double& x) -> double
 {
   return std::sqrt(x);
 }

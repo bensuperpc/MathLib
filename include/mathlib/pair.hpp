@@ -28,12 +28,9 @@ namespace math
  * @return false
  */
 template<typename T>
-bool is_odd(const T& nbr)
+auto is_odd(const T& nbr) -> bool
 {
-  if (nbr & 1)
-    return true;
-  else
-    return false;
+  return static_cast<bool>(nbr & 1);
 }
 
 /**
@@ -47,12 +44,9 @@ bool is_odd(const T& nbr)
  * @return false
  */
 template<typename T>
-bool is_even(const T& nbr)
+auto is_even(const T& nbr) -> bool
 {
-  if (nbr & 1)
-    return false;
-  else
-    return true;
+  return !static_cast<bool>(nbr & 1);
 }
 }  // namespace math
 }  // namespace my

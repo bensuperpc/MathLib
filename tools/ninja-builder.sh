@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++

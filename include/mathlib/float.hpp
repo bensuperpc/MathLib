@@ -28,15 +28,16 @@ namespace fp
 {
 
 template<typename IntegralType>
-typename std::enable_if<std::is_integral<IntegralType>::value, bool>::type
-are_aqual(const IntegralType& a, const IntegralType& b)
+auto are_aqual(const IntegralType& a, const IntegralType& b) ->
+    typename std::enable_if<std::is_integral<IntegralType>::value, bool>::type
 {
   return a == b;
 }
 
 template<typename FloatingType>
-typename std::enable_if<std::is_floating_point<FloatingType>::value, bool>::type
-are_aqual(const FloatingType& a, const FloatingType& b)
+auto are_aqual(const FloatingType& a, const FloatingType& b) ->
+    typename std::enable_if<std::is_floating_point<FloatingType>::value,
+                            bool>::type
 {
   return std::fabs(a - b) < std::numeric_limits<FloatingType>::epsilon();
 }

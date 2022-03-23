@@ -36,7 +36,7 @@ namespace ga
  * @return T
  */
 template<typename T>
-T getGravitationalAttraction(const T& m1, const T& m2, const T& d)
+auto getGravitationalAttraction(const T& m1, const T& m2, const T& d) -> T
 {
   return (CONSTANTE_G * m1 * m2) / d;
 }

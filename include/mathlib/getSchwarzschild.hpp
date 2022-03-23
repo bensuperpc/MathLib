@@ -11,7 +11,7 @@
 #ifndef GETSCHWARZCHILD_HPP_
 #define GETSCHWARZCHILD_HPP_
 
-#include <math.h>
+#include <cmath>
 
 #include "constant.hpp"
 namespace my
@@ -30,7 +30,7 @@ namespace schwarzschild
  * @return T
  */
 template<typename T>
-T getSchwarzschild(const T& masse)
+auto getSchwarzschild(const T& masse) -> T
 {
   return (masse > 0) ? (2.0 * CONSTANTE_G * masse) / (pow(LIGHT_SPEED, 2)) : 0;
 }
