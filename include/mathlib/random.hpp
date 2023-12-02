@@ -27,25 +27,22 @@
 #include <vector>
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
-#  if __has_include("omp.h")
-#    include <omp.h>
-#  endif
+#if __has_include("omp.h")
+#include <omp.h>
+#endif
 #endif
 
 #if !defined(_OPENMP)
-#  if _MSC_VER && !__INTEL_COMPILER
-#    pragma message("No openMP ! Only use 1 thread.")
-#  else
-#    warning No openMP ! Only use 1 thread.
-#  endif
+#if _MSC_VER && !__INTEL_COMPILER
+#pragma message("No openMP ! Only use 1 thread.")
+#else
+#warning No openMP ! Only use 1 thread.
+#endif
 #endif
 
-namespace my
-{
-namespace math
-{
-namespace rand
-{
+namespace ben {
+namespace math {
+namespace rand {
 /**
  * @brief
  *
@@ -54,11 +51,9 @@ namespace rand
  * @param upper
  * @return T
  */
-template<typename T, bool mersenne_64 = true>
-auto random(const T& fMin, const T& fMax) -> T
-{
-  typedef typename std::conditional<mersenne_64 == true,
-                                    std::mt19937_64,
+template <typename T, bool mersenne_64 = true>
+auto random(const T& fMin, const T& fMax) -> T {
+  typedef typename std::conditional<mersenne_64 == true, std::mt19937_64,
                                     std::mt19937>::type random_engine;
   random_engine rng;
   std::random_device rnd_device;
@@ -81,9 +76,8 @@ auto random(const T& fMin, const T& fMax) -> T
  * @param upper
  * @return T
  */
-template<typename T, bool mersenne_64 = true>
-auto random(T& var, const T& fMin, const T& fMax) -> void
-{
+template <typename T, bool mersenne_64 = true>
+auto random(T& var, const T& fMin, const T& fMax) -> void {
   var = random<T, mersenne_64>(fMin, fMax);
 }
 
@@ -94,15 +88,14 @@ auto random(T& var, const T& fMin, const T& fMax) -> void
  * @param lower
  * @param upper
  */
-template<typename T, bool mersenne_64 = true>
-auto random(std::vector<T>& vec, const T& lower, const T& upper) -> void
-{
+template <typename T, bool mersenne_64 = true>
+auto random(std::vector<T>& vec, const T& lower, const T& upper) -> void {
 #if defined(_OPENMP)
-#  ifdef _MSC_VER
-#    pragma omp parallel for schedule(static)
-#  else
-#    pragma omp parallel for schedule(auto)
-#  endif
+#ifdef _MSC_VER
+#pragma omp parallel for schedule(static)
+#else
+#pragma omp parallel for schedule(auto)
+#endif
 #endif
   for (typename std::vector<T>::size_type i = 0; i != vec.size(); i++) {
     vec[i] = random<T, mersenne_64>(lower, upper);
@@ -116,16 +109,15 @@ auto random(std::vector<T>& vec, const T& lower, const T& upper) -> void
  * @param lower
  * @param upper
  */
-template<typename T, bool mersenne_64 = true>
+template <typename T, bool mersenne_64 = true>
 auto random(T* arr, const std::size_t& S, const T& lower, const T& upper)
-    -> void
-{
+    -> void {
 #if defined(_OPENMP)
-#  ifdef _MSC_VER
-#    pragma omp parallel for schedule(static)
-#  else
-#    pragma omp parallel for schedule(auto)
-#  endif
+#ifdef _MSC_VER
+#pragma omp parallel for schedule(static)
+#else
+#pragma omp parallel for schedule(auto)
+#endif
 #endif
   for (std::size_t i = 0; i != S; i++) {
     arr[i] = random<T, mersenne_64>(lower, upper);
@@ -134,5 +126,5 @@ auto random(T* arr, const std::size_t& S, const T& lower, const T& upper)
 
 }  // namespace rand
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 #endif

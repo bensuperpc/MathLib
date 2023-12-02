@@ -14,16 +14,13 @@
 #include "constant.hpp"
 
 #if __cplusplus == 202002L
-#  include <numbers>
+#include <numbers>
 #endif
-namespace my
-{
+namespace ben {
 
-namespace math
-{
+namespace math {
 
-namespace sphere
-{
+namespace sphere {
 /**
  * @brief
  *
@@ -33,9 +30,8 @@ namespace sphere
  * @param r
  * @return T
  */
-template<typename T>
-T sphereVolume(const T& r)
-{
+template <typename T>
+T sphereVolume(const T& r) {
   return (4.0 / 3.0) * PI * (r * r * r);
 }
 
@@ -48,70 +44,13 @@ T sphereVolume(const T& r)
  * @param r
  * @return T
  */
-template<typename T>
-T sphereSurface(const T& r)
-{
+template <typename T>
+T sphereSurface(const T& r) {
   return (4.0 * PI * r);
 }
 
-/**
- * @brief
- *
- * @ingroup Math_sphere
- *
- * @tparam T
- * @param r
- * @return T
- */
-#if __cplusplus < 202002L
-#  ifdef CMAKE_CXX_EXTENSIONS
-#    if CMAKE_CXX_EXTENSIONS == 1
-template<typename T>
-T sphereSurface_Q(const T& r)
-{
-#      pragma GCC diagnostic ignored "-Wpedantic"
-  return (4.0 * Q_PI * r);
-}
-#    endif
-#  endif
-#else
-template<typename T>
-T sphereSurface_Q(const T& r)
-{
-  return (4.0 * std::numbers::pi * r);
-}
-#endif
-
-/**
- * @brief
- *
- * @ingroup Math_sphere
- *
- * @tparam T
- * @param r
- * @return T
- */
-#if __cplusplus < 202002L
-#  ifdef CMAKE_CXX_EXTENSIONS
-#    if CMAKE_CXX_EXTENSIONS == 1
-template<typename T>
-T sphereVolume_Q(const T& r)
-{
-#      pragma GCC diagnostic ignored "-Wpedantic"
-  return (4.0 / 3.0) * Q_PI * (r * r * r);
-}
-#    endif
-#  endif
-#else
-template<typename T>
-T sphereVolume_Q(const T& r)
-{
-  return (4.0 / 3.0) * std::numbers::pi * (r * r * r);
-}
-#endif
-
 }  // namespace sphere
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 
 #endif

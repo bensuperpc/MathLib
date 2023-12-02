@@ -14,10 +14,9 @@
 #include "gtest/gtest.h"
 #include "mathlib/constant.hpp"
 
-namespace schwarzschild = my::math::schwarzschild;
+namespace schwarzschild = ben::math::schwarzschild;
 
-TEST(getSchwarzschild, basic_double_1)
-{
+TEST(getSchwarzschild, basic_double_1) {
   auto data1 =
       static_cast<long int>(schwarzschild::getSchwarzschild<double>(SUN_MASS));
   auto data2 = static_cast<long int>(2953);
@@ -25,11 +24,15 @@ TEST(getSchwarzschild, basic_double_1)
   EXPECT_EQ(data1, data2);
 }
 
-TEST(getSchwarzschild, basic_double_2)
-{
+TEST(getSchwarzschild, basic_double_2) {
   auto data1 =
       static_cast<long int>(schwarzschild::getSchwarzschild<double>(0));
   auto data2 = static_cast<long int>(0);
 
   EXPECT_EQ(data1, data2);
+}
+
+auto main(int argc, char** argv) -> int {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

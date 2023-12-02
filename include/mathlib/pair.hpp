@@ -12,10 +12,8 @@
 #ifndef _PAIR_HPP_
 #define _PAIR_HPP_
 #include <cstdint>
-namespace my
-{
-namespace math
-{
+namespace ben {
+namespace math {
 
 /**
  * @brief
@@ -27,9 +25,8 @@ namespace math
  * @return true
  * @return false
  */
-template<typename T>
-auto is_odd(const T& nbr) -> bool
-{
+template <typename T>
+auto is_odd(const T& nbr) -> bool {
   return static_cast<bool>(nbr & 1);
 }
 
@@ -43,11 +40,10 @@ auto is_odd(const T& nbr) -> bool
  * @return true
  * @return false
  */
-template<typename T>
-auto is_even(const T& nbr) -> bool
-{
+template <typename T>
+auto is_even(const T& nbr) -> bool {
   return !static_cast<bool>(nbr & 1);
 }
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 #endif

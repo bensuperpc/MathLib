@@ -14,12 +14,9 @@
 #include <cmath>
 
 #include "constant.hpp"
-namespace my
-{
-namespace math
-{
-namespace schwarzschild
-{
+namespace ben {
+namespace math {
+namespace schwarzschild {
 /**
  * @brief Get the Schwarzschild object
  *
@@ -29,13 +26,12 @@ namespace schwarzschild
  * @param masse
  * @return T
  */
-template<typename T>
-auto getSchwarzschild(const T& masse) -> T
-{
+template <typename T>
+auto getSchwarzschild(const T& masse) -> T {
   return (masse > 0) ? (2.0 * CONSTANTE_G * masse) / (pow(LIGHT_SPEED, 2)) : 0;
 }
 }  // namespace schwarzschild
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 
 #endif

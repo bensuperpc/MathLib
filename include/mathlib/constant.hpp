@@ -9,70 +9,27 @@
  *
  */
 
-/** @defgroup Math Mathematic
- *  @brief The main Math group who contain all software to do math :)
- */
-/** @defgroup Math_prime Math prime
- *  @ingroup Math
- *  @brief All you need for calc and test prime numbers
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_power Math power
- *  @ingroup Math
- *  @brief Math power calculation
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_count_digits Math count digits
- *  @ingroup Math
- *  @brief count digits in variable
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_Schwarzschild Math get Schwarzschild
- *  @ingroup Math
- *  @brief get Schwarzschild
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_GravitationalAttraction Math get Gravitational Attraction
- *  @ingroup Math
- *  @brief get Gravitational Attraction
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_sphere Math get sphere infos
- *  @ingroup Math
- *  @brief get sphere infos
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_cylinder Math get cylinder infos
- *  @ingroup Math
- *  @brief get cylinder infos
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_square_root Math calc square_root
- *  @ingroup Math
- *  @brief calc square_root (like in Quake)
- *  @sa @link Math The first group Math@endlink
- */
-/** @defgroup Math_pair Math calc pair
- *  @ingroup Math
- *  @brief calc pair (is_odd or is_even)
- *  @sa @link Math The first group Math@endlink
- */
-
 #ifndef CONSTANT_HPP_
 #define CONSTANT_HPP_
-//#define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
-// BUILD_BUG_ON((sizeof(struct mystruct) % 8) != 0);
 
-#ifdef CMAKE_CXX_EXTENSIONS
-#  if CMAKE_CXX_EXTENSIONS == 1
-#    define O_PI \
-      3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280O
-#    define Q_PI 3.1415926535897932384626433832795028841971693993751058Q
-#  endif
+#if __cplusplus == 202002L
+#include <numbers>
 #endif
 
+#ifdef CMAKE_CXX_EXTENSIONS
+#if CMAKE_CXX_EXTENSIONS == 1
+#define O_PI \
+  3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280O
+#define Q_PI 3.1415926535897932384626433832795028841971693993751058Q
+#endif
+#endif
+
+#if __cplusplus < 202002L
 /// Define Pi (Double)
 #define PI 3.141592653589793238462643383279502884L
+#else
+#define PI std::numbers::pi
+#endif
 
 /// Define Pi (Float)
 #define F_PI 3.14159265358979323846F
@@ -103,7 +60,5 @@
 
 /// Define SAGITTARIUS mass (in m)
 #define SAGITTARIUS_A_STAR 4.154e6 * SUN_MASS
-/// Define ?
-#define TON_618 6.6e10 * SUN_MASS
 
 #endif

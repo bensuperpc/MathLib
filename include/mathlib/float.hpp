@@ -12,37 +12,36 @@
 #ifndef FLOAT_HPP_
 #define FLOAT_HPP_
 
-//#include <algorithm>
-// #include <cstdlib>
-//#include <cmath>
-
 #include <cmath>
 #include <limits>
-#include <type_traits>
 
-namespace my
+namespace ben
 {
 namespace math
 {
 namespace fp
 {
+/**
+ * @brief Compare two float if they are equal
+ *
+ * @tparam T
+ * @tparam relativeFloat
+ * @param f1
+ * @param f2
+ * @return true
+ * @return false
+ */
 
-template<typename IntegralType>
-auto are_aqual(const IntegralType& a, const IntegralType& b) ->
-    typename std::enable_if<std::is_integral<IntegralType>::value, bool>::type
-{
-  return a == b;
-}
-
-template<typename FloatingType>
-auto are_aqual(const FloatingType& a, const FloatingType& b) ->
-    typename std::enable_if<std::is_floating_point<FloatingType>::value,
-                            bool>::type
-{
-  return std::fabs(a - b) < std::numeric_limits<FloatingType>::epsilon();
+template <typename T, bool relative = true>
+static constexpr auto areEqual(T f1, T f2) -> typename std::enable_if<std::is_floating_point<T>::value, bool>::type {
+    if constexpr (relative) {
+        return (std::fabs(f1 - f2) <= std::numeric_limits<T>::epsilon() * std::fmax(std::fabs(f1), std::fabs(f2)));
+    } else {
+        return (std::fabs(f1 - f2) <= std::numeric_limits<T>::epsilon());
+    }
 }
 
 }  // namespace fp
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 #endif

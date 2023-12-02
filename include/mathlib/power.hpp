@@ -11,10 +11,8 @@
 
 #ifndef _POWER_HPP_
 #define _POWER_HPP_
-namespace my
-{
-namespace math
-{
+namespace ben {
+namespace math {
 /**
  * @brief
  *
@@ -23,9 +21,8 @@ namespace math
  * @param pow
  * @return T
  */
-template<typename T>
-auto power(const T& nb, const long int& p) -> T
-{
+template <typename T>
+auto power(const T& nb, const long int& p) -> T {
   if (p < 0)
     return (0);
   if (p != 0)
@@ -42,11 +39,10 @@ auto power(const T& nb, const long int& p) -> T
  * @return true
  * @return false
  */
-template<typename T>
-auto isPowerOfTwo(const T& x) -> bool
-{
+template <typename T>
+auto isPowerOfTwo(const T& x) -> bool {
   return x && (!(x & (x - 1)));
 }
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 #endif

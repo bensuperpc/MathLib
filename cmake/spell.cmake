@@ -14,6 +14,8 @@ if(FIX)
   set(flag -w)
 endif()
 
+set(flag "${flag}" --ignore-words codespell.ignore-words.txt)
+
 execute_process(
     COMMAND "${SPELL_COMMAND}" ${flag}
     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
@@ -21,9 +23,9 @@ execute_process(
 )
 
 if(result EQUAL "65")
-  message(WARNING "Run again with FIX=YES to fix these errors.")
+  message(FATAL_ERROR "Run again with FIX=YES to fix these errors.")
 elseif(result EQUAL "64")
-  message(WARNING "Spell checker printed the usage info. Bad arguments?")
+  message(FATAL_ERROR "Spell checker printed the usage info. Bad arguments?")
 elseif(NOT result EQUAL "0")
-  message(WARNING "Spell checker returned with ${result}")
+  message(FATAL_ERROR "Spell checker returned with ${result}")
 endif()

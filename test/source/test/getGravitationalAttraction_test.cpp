@@ -14,11 +14,15 @@
 #include "gtest/gtest.h"
 #include "mathlib/constant.hpp"
 
-TEST(getSchwarzschild, basic_double_1)
-{
+TEST(getSchwarzschild, basic_double_1) {
   auto data1 = static_cast<long int>(
-      my::math::ga::getGravitationalAttraction<double>(10000, 20000, 30000));
+      ben::math::ga::getGravitationalAttraction<double>(10000, 20000, 30000));
   auto data2 = static_cast<long int>(0);
 
   EXPECT_EQ(data1, data2);
+}
+
+auto main(int argc, char** argv) -> int {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

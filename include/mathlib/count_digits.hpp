@@ -14,12 +14,9 @@
 
 #include <bits/stdc++.h>
 
-namespace my
-{
-namespace math
-{
-namespace count_digits
-{
+namespace ben {
+namespace math {
+namespace count_digits {
 /**
  * @brief
  *
@@ -29,9 +26,8 @@ namespace count_digits
  * @param n
  * @return T
  */
-template<typename T>
-auto count_digits_1(T n) -> T
-{
+template <typename T>
+auto count_digits_1(T n) -> T {
   T count = 0;
   while (n != 0) {
     n = n / 10;
@@ -49,9 +45,8 @@ auto count_digits_1(T n) -> T
  * @param n
  * @return T
  */
-template<typename T>
-T count_digits_2(const T& n)
-{
+template <typename T>
+T count_digits_2(const T& n) {
   if (n == 0)
     return 0;
   return 1 + count_digits_2(n / 10);
@@ -66,9 +61,8 @@ T count_digits_2(const T& n)
  * @param n
  * @return T
  */
-template<typename T>
-T count_digits_3(const T& n)
-{
+template <typename T>
+T count_digits_3(const T& n) {
   return (T)std::floor(std::log10(n) + 1);
 }
 
@@ -81,14 +75,13 @@ T count_digits_3(const T& n)
  * @param n
  * @return T
  */
-template<typename T>
-T count_digits_4(const T& n)
-{
+template <typename T>
+T count_digits_4(const T& n) {
   std::string num = std::to_string(n);
   return (T)num.size();
 }
 }  // namespace count_digits
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 
 #endif

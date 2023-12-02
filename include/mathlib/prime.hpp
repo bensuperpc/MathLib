@@ -21,12 +21,9 @@
 
 #include <cmath>
 
-namespace my
-{
-namespace math
-{
-namespace prime
-{
+namespace ben {
+namespace math {
+namespace prime {
 /**
  * @brief
  *
@@ -36,10 +33,9 @@ namespace prime
  * @return true
  * @return false
  */
-bool isPrime_opti_0(const long long int& number)
-{
-  if (((!(number & 1)) && number != 2) || (number < 2)
-      || (number % 3 == 0 && number != 3))
+bool isPrime_opti_0(const long long int& number) {
+  if (((!(number & 1)) && number != 2) || (number < 2) ||
+      (number % 3 == 0 && number != 3))
     return (false);
 
   for (long long int k = 1; 36 * k * k - 12 * k < number; ++k)
@@ -60,8 +56,7 @@ bool isPrime_opti_0(const long long int& number)
  */
 inline long long int MultiplyMod(long long int a,
                                  long long int b,
-                                 long long int mod)
-{  // computes a * b % mod
+                                 long long int mod) {  // computes a * b % mod
   long long int r = 0;
   a %= mod, b %= mod;
   while (b) {
@@ -84,8 +79,7 @@ inline long long int MultiplyMod(long long int a,
  */
 inline long long int PowerMod(long long int a,
                               long long int n,
-                              long long int mod)
-{  // computes a^n % mod
+                              long long int mod) {  // computes a^n % mod
   long long int r = 1;
   while (n) {
     if (n & 1)
@@ -105,10 +99,10 @@ inline long long int PowerMod(long long int a,
  * @return true
  * @return false
  */
-// Thank
+// Thanks to
 // https://github.com/niklasb/tcr/blob/master/zahlentheorie/NumberTheory.cpp
-bool isPrime_opti_1(const long long int& n)
-{  // determines if n is a prime number
+bool isPrime_opti_1(
+    const long long int& n) {  // determines if n is a prime number
   const long long int pn = 9, p[] = {2, 3, 5, 7, 11, 13, 17, 19, 23};
   for (long long int i = 0; i < pn; ++i)
     if (n % p[i] == 0)
@@ -143,11 +137,10 @@ bool isPrime_opti_1(const long long int& n)
  * @return true
  * @return false
  */
-bool isPrime_opti_8(const long long int& n)
-{
+bool isPrime_opti_8(const long long int& n) {
   return (n < 4000000007) ? isPrime_opti_0(n) : isPrime_opti_1(n);
 }
 }  // namespace prime
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 #endif

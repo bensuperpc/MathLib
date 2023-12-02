@@ -14,17 +14,10 @@
 
 #include "constant.hpp"
 
-#if __cplusplus == 202002L
-#  include <numbers>
-#endif
+namespace ben {
+namespace math {
 
-namespace my
-{
-namespace math
-{
-
-namespace cylinder
-{
+namespace cylinder {
 
 /**
  * @brief
@@ -36,19 +29,10 @@ namespace cylinder
  * @param h
  * @return T
  */
-#if __cplusplus < 202002L
-template<typename T>
-auto cylinderSurface(const T& r, const T& h) -> T
-{
+template <typename T>
+auto cylinderSurface(const T& r, const T& h) -> T {
   return 2.0 * PI * r * r + 2.0 * PI * r * h;
 }
-#else
-template<typename T>
-auto cylinderSurface(const T& r, const T& h) -> T
-{
-  return 2.0 * std::numbers::pi * r * r + 2.0 * std::numbers::pi * r * h;
-}
-#endif
 
 /**
  * @brief
@@ -60,21 +44,12 @@ auto cylinderSurface(const T& r, const T& h) -> T
  * @param h
  * @return T
  */
-#if __cplusplus < 202002L
-template<typename T>
-auto cylinderVolume(const T& r, const T& h) -> T
-{
+template <typename T>
+auto cylinderVolume(const T& r, const T& h) -> T {
   return h * PI * r * r;
 }
-#else
-template<typename T>
-auto cylinderVolume(const T& r, const T& h) -> T
-{
-  return h * std::numbers::pi * r * r;
-}
-#endif
 }  // namespace cylinder
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 
 #endif

@@ -14,16 +14,13 @@
 
 #include "constant.hpp"
 
-namespace my
-{
-namespace math
-{
+namespace ben {
+namespace math {
 /**
  * @brief Math_GravitationalAttraction
  * @namespace ga
  */
-namespace ga
-{
+namespace ga {
 /**
  * @brief Get the Gravitational Attraction object
  *
@@ -35,13 +32,12 @@ namespace ga
  * @param d
  * @return T
  */
-template<typename T>
-auto getGravitationalAttraction(const T& m1, const T& m2, const T& d) -> T
-{
+template <typename T>
+auto getGravitationalAttraction(const T& m1, const T& m2, const T& d) -> T {
   return (CONSTANTE_G * m1 * m2) / d;
 }
 }  // namespace ga
 }  // namespace math
-}  // namespace my
+}  // namespace ben
 
 #endif

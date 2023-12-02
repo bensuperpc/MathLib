@@ -4,114 +4,74 @@ project(mathlibTests LANGUAGES CXX)
 
 include(../cmake/project-is-top-level.cmake)
 include(../cmake/folders.cmake)
-include(../cmake/windows-set-path.cmake)
+
+# ---- Dependencies ----
 
 if(PROJECT_IS_TOP_LEVEL)
   find_package(mathlib REQUIRED)
   enable_testing()
 endif()
 
-#add_executable(MathLib_test source/MathLib_test.cpp)
-#target_link_libraries(MathLib_test PRIVATE mathlib::mathlib)
-#target_compile_features(MathLib_test PRIVATE cxx_std_17)
+# ---- Tests ----
 
-#add_test(NAME MathLib_test COMMAND MathLib_test)
+function(test_bench_generator TEST_BENCH_NAME IS_TEST ADD_TO_TEST)
+    if (IS_TEST)
+        add_executable("${TEST_BENCH_NAME}" "source/test/${TEST_BENCH_NAME}.cpp")
+    else()
+        add_executable("${TEST_BENCH_NAME}" "source/benchmark/${TEST_BENCH_NAME}.cpp")
+    endif()
 
-find_package(OpenMP 2.0)
+    if (IS_TEST)
+        target_link_libraries("${TEST_BENCH_NAME}" PRIVATE gtest)
+    else()
+        target_link_libraries("${TEST_BENCH_NAME}" PRIVATE benchmark::benchmark)
+  endif()
 
+    target_link_libraries("${TEST_BENCH_NAME}" PRIVATE mathlib::mathlib)
 
-function(add_test_fn TEST_NAME)
-  add_executable("${TEST_NAME}" "source/${TEST_NAME}.cpp")
-  target_link_libraries("${TEST_NAME}" PRIVATE mathlib::mathlib gtest_main)
   if (OpenMP_FOUND OR OpenMP_CXX_FOUND)
-    target_link_libraries("${TEST_NAME}" PRIVATE OpenMP::OpenMP_CXX)
+        target_link_libraries("${TEST_BENCH_NAME}" PRIVATE OpenMP::OpenMP_CXX OpenMP::OpenMP_C)
   endif()
-  add_test("${TEST_NAME}" "${TEST_NAME}")
-  # target_compile_features("${TEST_NAME}" PRIVATE cxx_std_17)
+
+    set_target_properties("${TEST_BENCH_NAME}"
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        PDB_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    )
+
+    #if(NOT CMAKE_BUILD_TYPE MATCHES Debug AND NOT CMAKE_BUILD_TYPE MATCHES Coverage)
+    #  add_test(NAME "${TEST_BENCH_NAME}" COMMAND $<TARGET_FILE:${TEST_BENCH_NAME}>)
+    #elseif()
+    #  message(STATUS "Disable ${BENCH_NAME}, Performance benchmark test only run on Release/RelWithDebInfo/MinSizeRel")
+    #endif()
+
+    if (ADD_TO_TEST)
+        add_test(NAME "${TEST_BENCH_NAME}" COMMAND $<TARGET_FILE:${TEST_BENCH_NAME}>)
+  endif()
+    target_compile_features("${TEST_BENCH_NAME}" PRIVATE cxx_std_17)
 endfunction()
-
-function(add_bench_fn BENCH_NAME)
-  add_executable("${BENCH_NAME}" "source/${BENCH_NAME}.cpp")
-  target_link_libraries("${BENCH_NAME}" PRIVATE mathlib::mathlib benchmark::benchmark_main)
-  if (OpenMP_FOUND OR OpenMP_CXX_FOUND)
-    target_link_libraries("${BENCH_NAME}" PRIVATE OpenMP::OpenMP_CXX)
-  endif()
-
-  if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
-    add_test("${BENCH_NAME}" "${BENCH_NAME}")
-  elseif()
-    message(STATUS "Disable ${BENCH_NAME}, Performance benchmark test only run on Release/RelWithDebInfo/MinSizeRel")
-  endif()
-  # target_compile_features("${BENCH_NAME}" PRIVATE cxx_std_17)
-endfunction()
-
 
 if(NOT WIN32)
-  include(FetchContent)
-
-  # Externally provided libraries
-  FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG main)
-
-  FetchContent_Declare(
-    googlebenchmark
-    GIT_REPOSITORY https://github.com/google/benchmark.git
-    GIT_TAG main)
-
-  # Disable tests on gtest
-  set(gtest_build_tests
-      OFF
-      CACHE BOOL "" FORCE)
-  set(gtest_build_samples
-      OFF
-      CACHE BOOL "" FORCE)
-
-  # Disable tests on google benchmark
-  set(BENCHMARK_ENABLE_TESTING
-      OFF
-      CACHE BOOL "" FORCE)
-  set(BENCHMARK_ENABLE_WERROR
-      OFF
-      CACHE BOOL "" FORCE)
-  set(BENCHMARK_FORCE_WERROR
-      OFF
-      CACHE BOOL "" FORCE)
-
-  set(BENCHMARK_ENABLE_INSTALL
-      OFF
-      CACHE BOOL "" FORCE)
-
-  set(BENCHMARK_DOWNLOAD_DEPENDENCIES
-      ON
-      CACHE BOOL "" FORCE)
-      
-  set(CMAKE_CXX_CLANG_TIDY "")
-
-  FetchContent_MakeAvailable(googletest googlebenchmark)
-
-  # Add tests
-  add_test_fn(getSchwarzschild_test)
-  add_test_fn(getGravitationalAttraction_test)
-  add_test_fn(cylinder_test)
-  add_test_fn(power_test)
-  add_test_fn(sphere_test)
-  add_test_fn(float_test)
-  add_test_fn(random_test)
+  include(../cmake/lib/gtest.cmake)
+  include(../cmake/lib/benchmark.cmake)
 
   # Add tests
 
-  add_bench_fn(random_bench)
+  test_bench_generator(getSchwarzschild_test true true)
+  test_bench_generator(getGravitationalAttraction_test true true)
+  test_bench_generator(cylinder_test true true)
+  test_bench_generator(power_test true true)
+  test_bench_generator(sphere_test true true)
+  test_bench_generator(float_test true true)
+  test_bench_generator(random_test true true)
 
-  # Lib: gtest gtest_main benchmark::benchmark benchmark::benchmark_main
-
-  #include(GoogleTest)
-  #gtest_discover_tests(jamcrc_test)
-else()
-  message(WARNING "Disable tests, only supported on Linux")
+  # Add bench
+  test_bench_generator(random_bench false false)
+  test_bench_generator(float_bench false true)
 endif()
 
-
+# ---- End-of-file commands ----
 
 add_folders(Test)
