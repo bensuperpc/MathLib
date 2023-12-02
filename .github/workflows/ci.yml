@@ -20,7 +20,7 @@ jobs:
         submodules: "recursive"
         fetch-depth: 0
 
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@v4
       with: { python-version: "3.8" }
 
     - name: Install codespell
@@ -166,7 +166,7 @@ jobs:
         submodules: "recursive"
         fetch-depth: 0
 
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@v4
       with: { python-version: "3.8" }
 
     - name: Install m.css dependencies
